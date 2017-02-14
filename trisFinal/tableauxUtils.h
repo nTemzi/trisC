@@ -80,10 +80,7 @@ void copieTableau ( int *tableauOriginal, int *tableauCopie, int tailleTableau)
     int i = 0 ;
     
     for ( i = 0 ; i < tailleTableau; i++)
-    {
-        
         tableauCopie[i] = tableauOriginal[i];
-    }
     
 }
 

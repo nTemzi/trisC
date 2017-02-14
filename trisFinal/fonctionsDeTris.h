@@ -24,7 +24,7 @@ float shellSort ( int* tableau, int taille, int pas);
 void placer (int g, int d, int* T);
 float heapSort (int* tableau, int taille);
 void quickSort ( int* tableau, int premier, int taille);
-
+float triRapide (int* tableau, int premier, int taille);
 
 
 
@@ -285,6 +285,12 @@ float heapSort (int* tableau, int taille)
     return (float) (tFin - tDebut)/CLOCKS_PER_SEC;
 }
 
+
+
+
+
+
+
 void quickSort (int* tableau, int premier, int taille)
 {
     int debut = premier, booleenTrie = 0;
@@ -292,16 +298,6 @@ void quickSort (int* tableau, int premier, int taille)
     int pivot ;
     
     pivot = tableau[debut];
-    
-    
-    //   clock_t tDebut, tFin ;
-    
-    
-    
-    
-    //  tDebut = clock() ;
-    
-    
     
     
     if (debut >=fin )
@@ -328,12 +324,93 @@ void quickSort (int* tableau, int premier, int taille)
     
     quickSort( tableau, premier, fin);
     quickSort(tableau, (fin+1), taille);
+}
+
+
+
+void quickSort2 (int* tableau, int premier, int taille)
+{
+    int debut = premier - 1, booleenTrie = 0;
+    int fin = taille + 1 ;
+    int pivot ;
+    
+    pivot = tableau[premier];
+    
+    
+    if (premier >=taille )
+        return ;
+    
+    while ( !booleenTrie)
+    {
+        
+        
+        do
+        {
+            fin--;
+        }
+        while ( tableau[fin] > pivot );
+            
+        do
+        {
+            debut++;
+        }
+        while ( tableau[debut] < pivot);
+            
+        
+        if (debut < fin)
+        {
+            echange(tableau, debut, fin);
+            booleenTrie = 0;
+        }
+        else
+        
+            booleenTrie = 1 ;
+    }
+    
+    quickSort(tableau, premier, fin);
+    quickSort(tableau, (fin+1), taille);
     
     
     
     
-    //  tFin = clock();
     
+    
+}
+
+
+void quickSort3(int tableau[], int premier, int taille)
+{
+    int debut = premier-1, fin = taille+1 ;
+    
+    int booleenTrie = 0,pivot = tableau[premier];
+   
+    
+    if(premier >= taille)
+        return;
+    
+   
+    
+    while(! booleenTrie)
+    {
+        do
+            fin--;
+        while(tableau[fin] > pivot);
+        
+        do
+            debut++;
+        while(tableau[debut] < pivot);
+        
+        
+        if(debut < fin)
+        {
+            echange(tableau, debut, fin);
+            booleenTrie = 0;
+        }
+        else booleenTrie = 1 ;
+    }
+    
+    quickSort3(tableau, premier, fin);
+    quickSort3(tableau, fin+1, taille);
 }
 
 
@@ -341,20 +418,29 @@ void quickSort (int* tableau, int premier, int taille)
 
 
 
+float triRapide (int* tableau, int premier, int taille)
+{
+    clock_t tDebut, tFin ;
 
+    tDebut = clock() ;
 
+    quickSort3 ( tableau,  premier, taille -1);
 
+    tFin = clock();
 
+    return (float) (tFin - tDebut)/CLOCKS_PER_SEC;
 
+}
 
-
-
-
-
-
-
-
-
+ 
+ 
+/*
+float triRapide (int* tableau, int premier, int taille)
+{
+    
+    return 0.01;
+}
+*/
 
 
 
